@@ -105,7 +105,7 @@ public class Game {
                     if (neighbor < 2 || neighbor > 3) {
                         tabCopy[y][x] = 0;
                     }
-                } else if (b){
+                } else if (b) {
                     int neighbor = getNeighbor(gameTab, y, x);
                     System.out.println(neighbor);
                     if (neighbor == 3) {
@@ -117,23 +117,21 @@ public class Game {
     }
 
     private static int getNeighbor(int[][] gameTab, int y, int x) {
+        int[][] neighborsCoordonates = {
+                {-1, -1}, {-1, 0}, {-1, 1},
+                {0, -1}, {0, 1},
+                {1, -1}, {1, 0}, {1, 1}
+        };
         int neighbor = 0;
-        if (gameTab[y - 1][x - 1] == 1)
-            neighbor++;
-        if (gameTab[y - 1][x] == 1)
-            neighbor++;
-        if (gameTab[y - 1][x + 1] == 1)
-            neighbor++;
-        if (gameTab[y][x - 1] == 1)
-            neighbor++;
-        if (gameTab[y][x + 1] == 1)
-            neighbor++;
-        if (gameTab[y + 1][x - 1] == 1)
-            neighbor++;
-        if (gameTab[y + 1][x] == 1)
-            neighbor++;
-        if (gameTab[y + 1][x + 1] == 1)
-            neighbor++;
+
+        for (int[] offset : neighborsCoordonates) {
+            int neighborY = y + offset[0];
+            int neighborX = x + offset[1];
+
+            if (gameTab[neighborY][neighborX] == 1) {
+                neighbor++;
+            }
+        }
         return neighbor;
     }
 }

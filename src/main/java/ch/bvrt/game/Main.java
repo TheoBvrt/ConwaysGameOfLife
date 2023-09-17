@@ -23,7 +23,7 @@ public class Main extends Application {
         Thread gameThread = new Thread(() -> {
             game.Run(graphicsContext);
         });
-        
+
         gameThread.start();
         primaryStage.show();
     }
