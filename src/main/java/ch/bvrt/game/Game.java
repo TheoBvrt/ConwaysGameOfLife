@@ -5,11 +5,11 @@ import javafx.scene.paint.Color;
 
 public class Game {
     final int tabSize;
-    final int celSize;
+    final int cellSize;
 
     public Game(int windowSize) {
         tabSize = (windowSize / 20) - 1;
-        celSize = 20;
+        cellSize = 20;
     }
 
     public void Run(GraphicsContext gc) {
@@ -75,17 +75,17 @@ public class Game {
                 } else {
                     DrawCell(frameY, frameX, gc, Color.BLACK);
                 }
-                frameX += celSize;
+                frameX += cellSize;
             }
-            frameY += celSize;
+            frameY += cellSize;
             frameX = 0;
         }
     }
 
     private void DrawCell(int frameY, int frameX, GraphicsContext gc, Color color) {
-        for (int y = 0; y < celSize; y++) {
-            for (int x = 0; x < celSize; x++) {
-                if (x == (celSize - 1) || y == (celSize - 1) || x == 0 || y == 0) {
+        for (int y = 0; y < cellSize; y++) {
+            for (int x = 0; x < cellSize; x++) {
+                if (x == (cellSize - 1) || y == (cellSize - 1) || x == 0 || y == 0) {
                     gc.setFill(Color.BLACK);
                 } else {
                     gc.setFill(color);
