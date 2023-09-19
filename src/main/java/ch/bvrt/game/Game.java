@@ -35,9 +35,9 @@ public class Game {
         } catch (InterruptedException e) {
             System.out.println(e);
         }
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 1000; i++) {
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
