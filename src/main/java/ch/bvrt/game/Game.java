@@ -16,34 +16,34 @@ public class Game {
         int[][] gameTab = TabFill();
         int[][] tabCopy = new int[gameTab.length][gameTab.length];
 
-        gameTab[20][16] = 1;
-        gameTab[21][15] = 1;
-        gameTab[22][15] = 1;
-        gameTab[22][16] = 1;
-        gameTab[22][17] = 1;
+        gameTab[9][12] = 1;
+        gameTab[10][10] = 1;
+        gameTab[10][12] = 1;
+        gameTab[11][11] = 1;
+        gameTab[11][12] = 1;
 
-        gameTab[25][16] = 1;
-        gameTab[25][17] = 1;
-        gameTab[26][15] = 1;
-        gameTab[26][17] = 1;
-        gameTab[27][17] = 1;
+        gameTab[12][21] = 1;
+        gameTab[13][20] = 1;
+        gameTab[13][19] = 1;
+        gameTab[14][20] = 1;
+        gameTab[14][21] = 1;
 
-        frameUpdate(gameTab, gc);
+        FrameUpdater frameUpdater = new FrameUpdater(gameTab, gc, cellSize);
+        frameUpdater.start();
         try {
-            Thread.sleep(400);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             System.out.println(e);
         }
         for (int i = 0; i < 200; i++) {
             try {
-                Thread.sleep(300);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 System.out.println(e);
             }
             CopyTab(gameTab, tabCopy);
             GameRules(gameTab, tabCopy);
             CopyTab(tabCopy, gameTab);
-            frameUpdate(gameTab, gc);
         }
     }
 
@@ -63,51 +63,17 @@ public class Game {
         return tabToReturn;
     }
 
-    private void frameUpdate(int[][] gameTab, GraphicsContext gc) {
-        int frameY = 0;
-        int frameX = 0;
-
-        gc.setFill(Color.RED);
-        for (int[] ints : gameTab) {
-            for (int gameTabY = 0; gameTabY < gameTab.length; gameTabY++) {
-                if (ints[gameTabY] == 0) {
-                    DrawCell(frameY, frameX, gc, Color.WHITE);
-                } else {
-                    DrawCell(frameY, frameX, gc, Color.BLACK);
-                }
-                frameX += cellSize;
-            }
-            frameY += cellSize;
-            frameX = 0;
-        }
-    }
-
-    private void DrawCell(int frameY, int frameX, GraphicsContext gc, Color color) {
-        for (int y = 0; y < cellSize; y++) {
-            for (int x = 0; x < cellSize; x++) {
-                if (x == (cellSize - 1) || y == (cellSize - 1) || x == 0 || y == 0) {
-                    gc.setFill(Color.BLACK);
-                } else {
-                    gc.setFill(color);
-                }
-                gc.fillRect(x + frameX, y + frameY, 1, 1);
-            }
-        }
-    }
-
     private void GameRules(int[][] gameTab, int[][] tabCopy) {
         for (int y = 0; y < gameTab.length; y++) {
             for (int x = 0; x < gameTab.length; x++) {
                 final boolean b = y != 0 && x != 0 && y != gameTab.length - 1 && x != gameTab.length - 1;
                 if (gameTab[y][x] == 1 && b) {
                     int neighbor = getNeighbor(gameTab, y, x);
-                    System.out.println(neighbor);
                     if (neighbor < 2 || neighbor > 3) {
                         tabCopy[y][x] = 0;
                     }
                 } else if (b) {
                     int neighbor = getNeighbor(gameTab, y, x);
-                    System.out.println(neighbor);
                     if (neighbor == 3) {
                         tabCopy[y][x] = 1;
                     }
@@ -117,14 +83,14 @@ public class Game {
     }
 
     private static int getNeighbor(int[][] gameTab, int y, int x) {
-        int[][] neighborsCoordonates = {
+        int[][] neighbors = {
                 {-1, -1}, {-1, 0}, {-1, 1},
                 {0, -1}, {0, 1},
                 {1, -1}, {1, 0}, {1, 1}
         };
         int neighbor = 0;
 
-        for (int[] offset : neighborsCoordonates) {
+        for (int[] offset : neighbors) {
             int neighborY = y + offset[0];
             int neighborX = x + offset[1];
 
